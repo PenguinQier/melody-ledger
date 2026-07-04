@@ -29,6 +29,6 @@ Thumbs.db
 *.sql
 
 # Local media and runtime uploads
-ZJ_BlogProject/music/
-ZJ_BlogProject/public/uploads/*
-!ZJ_BlogProject/public/uploads/.gitkeep
+music/
+public/uploads/*
+!public/uploads/.gitkeep

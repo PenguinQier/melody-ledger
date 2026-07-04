@@ -29,17 +29,16 @@ MelodyLedger is a Go-powered personal blog system with article publishing, user 
 
 ```text
 .
-├── README.md
-└── ZJ_BlogProject/          # Go application
-    ├── assets/              # CSS, JS, and image assets
-    ├── cmd/                 # Cobra commands
-    ├── config/              # App config and config.yaml
-    ├── database/            # Additional migration definitions
-    ├── internal/            # Modules, middleware, routes, templates
-    ├── pkg/                 # Shared infrastructure packages
-    ├── public/              # Public runtime files
-    ├── go.mod
-    └── main.go
+|-- assets/              # CSS, JS, and image assets
+|-- cmd/                 # Cobra commands
+|-- config/              # App config and config.yaml
+|-- database/            # Additional migration definitions
+|-- internal/            # Modules, middleware, routes, templates
+|-- pkg/                 # Shared infrastructure packages
+|-- public/              # Public runtime files
+|-- go.mod
+|-- main.go
+`-- README.md
 ```
 
 ## Quick Start
@@ -49,18 +48,18 @@ MelodyLedger is a Go-powered personal blog system with article publishing, user 
 Create an empty MySQL database:
 
 ```sql
-CREATE DATABASE zj_blog CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE melody_ledger CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 If you have a local SQL dump, you can import it manually:
 
 ```bash
-mysql -u root -p zj_blog < your_dump.sql
+mysql -u root -p melody_ledger < your_dump.sql
 ```
 
 ### 2. Configure The App
 
-Edit `ZJ_BlogProject/config/config.yaml` if your MySQL credentials are different:
+Edit `config/config.yaml` if your MySQL credentials are different:
 
 ```yaml
 app:
@@ -75,13 +74,12 @@ db:
   password: "123456"
   host: "127.0.0.1"
   port: "3306"
-  name: "zj_blog"
+  name: "melody_ledger"
 ```
 
 ### 3. Install Dependencies
 
 ```bash
-cd ZJ_BlogProject
 go mod download
 ```
 
@@ -111,7 +109,7 @@ http://localhost:8080
 
 ## Commands
 
-Run commands from `ZJ_BlogProject`:
+Run commands from the repository root:
 
 ```bash
 go run . serve     # Start the web server
@@ -159,17 +157,17 @@ go build -o melody-ledger.exe .
 
 ## Media Files
 
-Runtime uploads are served from `ZJ_BlogProject/public`. Large local media files are intentionally ignored by git so the public repository stays lightweight and avoids publishing copyrighted audio. Add your own local files under:
+Runtime uploads are served from `public`. Large local media files are intentionally ignored by git so the public repository stays lightweight and avoids publishing copyrighted audio. Add your own local files under:
 
 ```text
-ZJ_BlogProject/public/uploads/
+public/uploads/
 ```
 
 Local database dumps are also ignored because they may contain personal accounts, emails, article drafts, and upload paths.
 
 ## Development Checks
 
-Run from `ZJ_BlogProject`:
+Run from the repository root:
 
 ```bash
 go test ./...
