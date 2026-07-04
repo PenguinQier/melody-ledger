@@ -1,0 +1,397 @@
+{{ define "modules/article/html/show" }}
+    {{ template "templates/layouts/html/head" .}}
+    {{ template "templates/layouts/html/navbar" .}}
+    {{ template "templates/layouts/html/header" .}}
+
+    <!-- Begin Article
+================================================== -->
+    <div class="container">
+        <div class="row">
+            <!-- Begin Fixed Left Share -->
+            <div class="col-md-2 col-xs-12">
+                <div class="share">
+                    <p>
+                        Share
+                    </p>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="#">
+                                <svg class="svgIcon-use" width="29" height="29" viewbox="0 0 29 29"><path d="M21.967 11.8c.018 5.93-4.607 11.18-11.177 11.18-2.172 0-4.25-.62-6.047-1.76l-.268.422-.038.5.186.013.168.012c.3.02.44.032.6.046 2.06-.026 3.95-.686 5.49-1.86l1.12-.85-1.4-.048c-1.57-.055-2.92-1.08-3.36-2.51l-.48.146-.05.5c.22.03.48.05.75.08.48-.02.87-.07 1.25-.15l2.33-.49-2.32-.49c-1.68-.35-2.91-1.83-2.91-3.55 0-.05 0-.01-.01.03l-.49-.1-.25.44c.63.36 1.35.57 2.07.58l1.7.04L7.4 13c-.978-.662-1.59-1.79-1.618-3.047a4.08 4.08 0 0 1 .524-1.8l-.825.07a12.188 12.188 0 0 0 8.81 4.515l.59.033-.06-.59v-.02c-.05-.43-.06-.63-.06-.87a3.617 3.617 0 0 1 6.27-2.45l.2.21.28-.06c1.01-.22 1.94-.59 2.73-1.09l-.75-.56c-.1.36-.04.89.12 1.36.23.68.58 1.13 1.17.85l-.21-.45-.42-.27c-.52.8-1.17 1.48-1.92 2L22 11l.016.28c.013.2.014.35 0 .52v.04zm.998.038c.018-.22.017-.417 0-.66l-.498.034.284.41a8.183 8.183 0 0 0 2.2-2.267l.97-1.48-1.6.755c.17-.08.3-.02.34.03a.914.914 0 0 1-.13-.292c-.1-.297-.13-.64-.1-.766l.36-1.254-1.1.695c-.69.438-1.51.764-2.41.963l.48.15a4.574 4.574 0 0 0-3.38-1.484 4.616 4.616 0 0 0-4.61 4.613c0 .29.02.51.08.984l.01.02.5-.06.03-.5c-3.17-.18-6.1-1.7-8.08-4.15l-.48-.56-.36.64c-.39.69-.62 1.48-.65 2.28.04 1.61.81 3.04 2.06 3.88l.3-.92c-.55-.02-1.11-.17-1.6-.45l-.59-.34-.14.67c-.02.08-.02.16 0 .24-.01 2.12 1.55 4.01 3.69 4.46l.1-.49-.1-.49c-.33.07-.67.12-1.03.14-.18-.02-.43-.05-.64-.07l-.76-.09.23.73c.57 1.84 2.29 3.14 4.28 3.21l-.28-.89a8.252 8.252 0 0 1-4.85 1.66c-.12-.01-.26-.02-.56-.05l-.17-.01-.18-.01L2.53 21l1.694 1.07a12.233 12.233 0 0 0 6.58 1.917c7.156 0 12.2-5.73 12.18-12.18l-.002.04z"></path></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="#">
+                                <svg class="svgIcon-use" width="29" height="29" viewbox="0 0 29 29"><path d="M16.39 23.61v-5.808h1.846a.55.55 0 0 0 .546-.48l.36-2.797a.551.551 0 0 0-.547-.62H16.39V12.67c0-.67.12-.813.828-.813h1.474a.55.55 0 0 0 .55-.55V8.803a.55.55 0 0 0-.477-.545c-.436-.06-1.36-.116-2.22-.116-2.5 0-4.13 1.62-4.13 4.248v1.513H10.56a.551.551 0 0 0-.55.55v2.797c0 .304.248.55.55.55h1.855v5.76c-4.172-.96-7.215-4.7-7.215-9.1 0-5.17 4.17-9.36 9.31-9.36 5.14 0 9.31 4.19 9.31 9.36 0 4.48-3.155 8.27-7.43 9.15M14.51 4C8.76 4 4.1 8.684 4.1 14.46c0 5.162 3.75 9.523 8.778 10.32a.55.55 0 0 0 .637-.543v-6.985a.551.551 0 0 0-.55-.55H11.11v-1.697h1.855a.55.55 0 0 0 .55-.55v-2.063c0-2.02 1.136-3.148 3.03-3.148.567 0 1.156.027 1.597.06v1.453h-.924c-1.363 0-1.93.675-1.93 1.912v1.78c0 .3.247.55.55.55h2.132l-.218 1.69H15.84c-.305 0-.55.24-.55.55v7.02c0 .33.293.59.623.54 5.135-.7 9.007-5.11 9.007-10.36C24.92 8.68 20.26 4 14.51 4"></path></svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="sep">
+                    </div>
+                    <p>
+                        Talk
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                42<br/>
+                                <svg class="svgIcon-use" width="29" height="29" viewbox="0 0 29 29"><path d="M21.27 20.058c1.89-1.826 2.754-4.17 2.754-6.674C24.024 8.21 19.67 4 14.1 4 8.53 4 4 8.21 4 13.384c0 5.175 4.53 9.385 10.1 9.385 1.007 0 2-.14 2.95-.41.285.25.592.49.918.7 1.306.87 2.716 1.31 4.19 1.31.276-.01.494-.14.6-.36a.625.625 0 0 0-.052-.65c-.61-.84-1.042-1.71-1.282-2.58a5.417 5.417 0 0 1-.154-.75zm-3.85 1.324l-.083-.28-.388.12a9.72 9.72 0 0 1-2.85.424c-4.96 0-8.99-3.706-8.99-8.262 0-4.556 4.03-8.263 8.99-8.263 4.95 0 8.77 3.71 8.77 8.27 0 2.25-.75 4.35-2.5 5.92l-.24.21v.32c0 .07 0 .19.02.37.03.29.1.6.19.92.19.7.49 1.4.89 2.08-.93-.14-1.83-.49-2.67-1.06-.34-.22-.88-.48-1.16-.74z"></path></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Fixed Left Share -->
+
+            <!-- Begin Post -->
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <div class="mainheading">
+
+                    <!-- Begin Top Meta -->
+                    <div class="row post-top-meta">
+                        <div class="col-md-2">
+                            <a href="#"><img class="author-thumb" src="{{ .article.User.Image }}" alt="{{ .article.User.Name }}"></a>
+                        </div>
+                        <div class="col-md-10">
+                            <a class="link-dark" href="#">{{ .article.User.Name }}</a><a href="#" class="btn follow">Follow</a>
+                            <span class="author-description">你正在预览的是<b>"{{ .article.User.Name }}"</b>的文章作品，她希望分享最优质的音乐作品给大家。</span>
+                            <span class="post-date">{{ .article.CreatedAt }}</span><span class="dot"></span><span class="post-read">6 min read</span>
+                        </div>
+                    </div>
+                    <!-- End Top Menta -->
+
+                    <div class="article-header">
+                        <h1>{{ .article.Title }}</h1>
+                        {{ if eq .article.UserID .AUTH.ID }}
+                        <div class="cover-upload">
+                            <form action="/articles/{{ .article.ID }}/cover" method="POST" enctype="multipart/form-data">
+                                <div class="music-upload-box">
+                                    <input type="file" name="cover" id="cover" accept="image/*" class="cover-input">
+                                    <label for="cover" class="cover-label">
+                                        <i class="fas fa-camera"></i>
+                                        <span>更换封面图</span>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        {{ end }}
+                    </div>
+
+                    {{ if eq .AUTH.ID .article.User.ID }}
+                    <div class="article-actions">
+                        <a href="/articles/{{ .article.ID }}/edit" class="btn btn-primary">编辑文章</a>
+                        <button onclick="confirmDelete({{ .article.ID }})" class="btn btn-danger">删除文章</button>
+                    </div>
+                    {{ end }}
+
+                </div>
+
+                <!-- Begin Featured Image -->
+                <img class="featured-image img-fluid" src="{{ .article.Image }}" alt="{{ .article.Title }}">
+                <!-- End Featured Image -->
+
+                <!-- Begin Post Content -->
+                <div class="article-post">
+                    {{ .article.Content }}
+                </div>
+                <!-- End Post Content -->
+
+                <!-- Begin Files -->
+                {{ if .article.Files }}
+                <div class="article-files mt-4">
+                    <h4>附件</h4>
+                    <div class="files-list">
+                        {{ range $index, $file := split .article.Files "," }}
+                            <div class="file-item">
+                                {{ if isImage $file }}
+                                    <img src="{{ $file }}" alt="附件图片" class="img-fluid mb-2">
+                                {{ else }}
+                                    <a href="{{ $file }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        <i class="fa fa-download"></i> 下载附件 {{ add $index 1 }}
+                                    </a>
+                                {{ end }}
+                            </div>
+                        {{ end }}
+                    </div>
+                </div>
+                {{ end }}
+                <!-- End Files -->
+
+                <!-- Begin Tags -->
+                <div class="after-post-tags">
+                    <ul class="tags">
+                        <li><a href="#">设计</a></li>
+                        <li><a href="#">成长心态</a></li>
+                        <li><a href="#">生产力</a></li>
+                        <li><a href="#">个人成长</a></li>
+                    </ul>
+                </div>
+                <!-- End Tags -->
+
+                <!-- Begin Comments -->
+                <div class="comments-section">
+                    <h3 class="mb-4">评论区</h3>
+
+                    <!-- Comments List -->
+                    <div class="comments-list mb-4" id="commentsList">
+                        {{ if not .comments.Data }}
+                            <p class="text-center text-muted">暂无评论</p>
+                        {{ else }}
+                            {{ range .comments.Data }}
+                            <div class="comment-item mb-3 p-3 border-bottom" data-comment-id="{{ .ID }}">
+                                <div class="comment-meta d-flex align-items-center mb-2">
+                                    <img class="author-thumb rounded-circle mr-2" src="{{ .User.Image }}" alt="{{ .User.Name }}" style="width: 40px; height: 40px;">
+                                    <div>
+                                        <span class="comment-author font-weight-bold">{{ .User.Name }}</span>
+                                        <br>
+                                        <small class="text-muted">{{ .CreatedAt }}</small>
+                                    </div>
+                                    {{ if eq .User.ID $.AUTH.ID }}
+                                    <div class="ml-auto">
+                                        <button onclick="deleteComment({{ .ID }})" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    {{ end }}
+                                </div>
+                                <div class="comment-content">
+                                    {{ .Content }}
+                                </div>
+                            </div>
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                    <!-- End Comments List -->
+
+                    <!-- Comment Form -->
+                    <div class="comment-form-section">
+                        <h4 class="mb-3">发表评论</h4>
+                        {{ if eq .AUTH.ID 0 }}
+                            <div class="alert alert-info">
+                                请<a href="/login" class="alert-link">登录</a>后发表评论
+                            </div>
+                        {{ else }}
+                            <form id="commentForm" class="comment-form">
+                                <input type="hidden" name="article_id" value="{{ .article.ID }}">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="content" rows="3"
+                                        placeholder="写下您的评论..." required
+                                        style="resize: vertical; min-height: 100px;"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="submitComment">
+                                    <i class="fa fa-paper-plane"></i> 发表评论
+                                </button>
+                            </form>
+                        {{ end }}
+                    </div>
+                    <!-- End Comment Form -->
+                </div>
+                <!-- End Comments -->
+
+                <style>
+                .comment-item {
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                }
+                .comment-meta {
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 10px;
+                }
+                .comment-content {
+                    padding-top: 10px;
+                    white-space: pre-wrap;
+                }
+                .author-thumb {
+                    border: 2px solid #fff;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                }
+                .comment-form textarea {
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+                .comment-form textarea:focus {
+                    border-color: #80bdff;
+                    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+                }
+                .cover-upload {
+                    margin: 20px 0;
+                }
+                .music-upload-box {
+                    position: relative;
+                    display: inline-block;
+                }
+                .cover-input {
+                    position: absolute;
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    z-index: -1;
+                }
+                .cover-label {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 20px;
+                    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+                    color: #fff;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+                .cover-label:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+                }
+                </style>
+
+            </div>
+            <!-- End Post -->
+
+        </div>
+    </div>
+    <!-- End Article
+    ================================================== -->
+
+    <script>
+    function confirmDelete(articleId) {
+        if (confirm('确定要删除这篇文章吗？此操作不可恢复！')) {
+            fetch(`/articles/${articleId}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    window.location.href = '/'; // 删除成功后跳转到首页
+                }
+            })
+            .catch(error => {
+                alert('删除失败，请稍后重试');
+            });
+        }
+    }
+
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const content = form.querySelector('textarea[name="content"]').value;
+        const articleId = form.querySelector('input[name="article_id"]').value;
+
+        const data = {
+            content: content,
+            article_id: parseInt(articleId)
+        };
+        console.log('Sending data:', data);
+
+        fetch('/comments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(async response => {
+            const text = await response.text();
+            console.log('Raw response:', text);
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                throw new Error('Invalid JSON response: ' + text);
+            }
+        })
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                // 添加新评论到列表顶部
+                const commentsList = document.getElementById('commentsList');
+                const newComment = `
+                    <div class="comment-item mb-3 p-3 border-bottom" data-comment-id="${data.id}">
+                        <div class="comment-meta d-flex align-items-center mb-2">
+                            <img class="author-thumb rounded-circle mr-2" src="${data.user.image}" alt="${data.user.name}" style="width: 40px; height: 40px;">
+                            <div>
+                                <span class="comment-author font-weight-bold">${data.user.name}</span>
+                                <br>
+                                <small class="text-muted">${data.created_at}</small>
+                            </div>
+                            <div class="ml-auto">
+                                <button onclick="deleteComment(${data.id})" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            ${data.content}
+                        </div>
+                    </div>
+                `;
+                commentsList.insertAdjacentHTML('afterbegin', newComment);
+
+                // 清空评论框
+                form.querySelector('textarea[name="content"]').value = '';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.error || '发送评论失败：' + error.message);
+        });
+    });
+
+    function deleteComment(commentId) {
+        if (confirm('确定要删除这条评论吗？')) {
+            fetch(`/comments/${commentId}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    // 找到并移除评论元素
+                    const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`);
+                    if (commentElement) {
+                        // 添加淡出动画效果
+                        commentElement.style.transition = 'all 0.3s ease';
+                        commentElement.style.opacity = '0';
+                        commentElement.style.transform = 'translateX(20px)';
+
+                        // 等待动画完成后移除元素
+                        setTimeout(() => {
+                            commentElement.remove();
+
+                            // 如果没有评论了，显示暂无评论提示
+                            const commentsList = document.getElementById('commentsList');
+                            if (commentsList.children.length === 0) {
+                                commentsList.innerHTML = '<p class="text-center text-muted">暂无评论</p>';
+                            }
+                        }, 300);
+                    }
+                }
+            })
+            .catch(error => {
+                alert('删除评论失败，请稍后重试');
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    document.getElementById('cover').addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            // 自动提交表单
+            this.closest('form').submit();
+        }
+    });
+    </script>
+
+    {{ template "templates/layouts/html/footer" .}}
+    {{ template "templates/layouts/html/foot" .}}
+{{ end }}

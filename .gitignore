@@ -1,0 +1,34 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+melody-ledger
+
+# Build output
+dist/
+build/
+tmp/
+
+# Local config and secrets
+.env
+.env.*
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local database dumps
+*.sql
+
+# Local media and runtime uploads
+ZJ_BlogProject/music/
+ZJ_BlogProject/public/uploads/*
+!ZJ_BlogProject/public/uploads/.gitkeep

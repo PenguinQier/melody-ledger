@@ -1,0 +1,167 @@
+{{ define "modules/article/html/edit" }}
+    {{ template "templates/layouts/html/head" .}}
+    {{ template "templates/layouts/html/navbar" .}}
+
+    <!-- 音乐风格编辑文章页面 -->
+    <div class="music-create-container">
+        <div class="music-create-box">
+            <div class="create-header">
+                <div class="vinyl-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h1 class="music-title">编辑文章</h1>
+            </div>
+
+            <form class="music-create-form" action="/articles/{{ .article.ID }}/update" method="POST">
+                <div class="form-group">
+                    <i class="fas fa-heading"></i>
+                    <input type="text" id="title" name="title"
+                        placeholder="请输入文章标题"
+                        value="{{ if .OLD.title }}{{ range .OLD.title }}{{.}}{{end}}{{ else }}{{.article.Title}}{{end}}">
+                    <span class="text-danger">{{ .ERRORS.title }}</span>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-pen-fancy"></i>
+                    <textarea id="content" name="content"
+                        placeholder="写下你的故事...">{{ if .OLD.content }}{{ range .OLD.content }}{{.}}{{end}}{{ else }}{{.article.Content}}{{end}}</textarea>
+                    <span class="text-danger">{{ .ERRORS.content }}</span>
+                </div>
+
+                <button type="submit" class="music-btn">
+                    <i class="fas fa-save"></i> 保存修改
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+    .music-create-container {
+        min-height: 100vh;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #1e2024 0%, #18181d 100%);
+    }
+
+    .music-create-box {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .create-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .vinyl-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        animation: rotate 20s linear infinite;
+    }
+
+    .vinyl-icon i {
+        font-size: 40px;
+        color: #fff;
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .music-title {
+        color: #fff;
+        font-size: 2.5em;
+        margin: 0;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .music-create-form .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .music-create-form input,
+    .music-create-form textarea {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .music-create-form textarea {
+        min-height: 300px;
+        resize: vertical;
+    }
+
+    .music-create-form input:focus,
+    .music-create-form textarea:focus {
+        background: rgba(255,255,255,0.2);
+        outline: none;
+        box-shadow: 0 0 15px rgba(255,107,107,0.3);
+    }
+
+    .music-create-form i {
+        position: absolute;
+        left: 15px;
+        top: 18px;
+        color: #fff;
+        opacity: 0.7;
+    }
+
+    .music-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .music-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+    }
+
+    .text-danger {
+        color: #ff6b6b;
+        font-size: 14px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .music-create-box {
+            padding: 20px;
+        }
+
+        .music-title {
+            font-size: 2em;
+        }
+    }
+    </style>
+
+    {{ template "templates/layouts/html/footer" .}}
+    {{ template "templates/layouts/html/foot" .}}
+{{ end }}

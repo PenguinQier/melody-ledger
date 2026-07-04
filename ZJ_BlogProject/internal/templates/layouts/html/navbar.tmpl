@@ -1,0 +1,240 @@
+{{ define "templates/layouts/html/navbar" }}
+    <!-- Begin Nav
+    ================================================== -->
+    <nav class="navbar navbar-toggleable-md fixed-top music-nav">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <!-- Begin Logo -->
+            <a class="navbar-brand" href="/">
+                <img src="/assets/img/logo.png" alt="logo">
+            </a>
+            <!-- End Logo -->
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <!-- Begin Menu -->
+                <ul class="navbar-nav ml-auto">
+                    {{ if (eq .AUTH.ID 0) }}
+                    <li class="nav-item active">
+                        <a class="nav-link music-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> 登录
+                        </a>
+                    </li>
+                    {{ else }}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="dropdown-toggle nav-link music-link" data-toggle="dropdown">
+                            <img class="float-left profile-thumbnail" src="{{ .AUTH.Image }}" alt="{{ .AUTH.Name }}">
+                            {{ .AUTH.Name }}
+                        </a>
+                        <ul class="dropdown-menu music-dropdown">
+                            <li>
+                                <a class="dropdown-item" href="/profile">
+                                    <i class="fas fa-user"></i> 个人信息
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/articles/create">
+                                    <i class="fas fa-pen"></i> 创建文章
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="$('#logout').submit()" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                                    <form action="/logout" method="POST" id="logout"></form>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{end}}
+                </ul>
+                <!-- End Menu -->
+                <!-- Begin Search -->
+                <form class="form-inline my-2 my-lg-0" action="/search" method="GET" id="navSearchForm">
+                    <div class="search-box">
+                        <input class="form-control mr-sm-2 music-search" type="text" name="keyword"
+                            placeholder="搜索文章..."
+                            id="navSearchInput"
+                            autocomplete="off">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </form>
+                <!-- End Search -->
+            </div>
+        </div>
+    </nav>
+    <!-- End Nav
+    ================================================== -->
+
+    <style>
+    .music-nav {
+        background: rgba(30, 32, 36, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 15px 0;
+        margin-bottom: 0;
+    }
+
+    .music-nav .navbar-brand img {
+        height: 30px;
+        transition: transform 0.3s ease;
+    }
+
+    .music-nav .navbar-brand:hover img {
+        transform: scale(1.05);
+    }
+
+    .music-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+        transition: all 0.3s ease;
+        padding: 8px 15px !important;
+        border-radius: 20px;
+    }
+
+    .music-link:hover {
+        color: #ff6b6b !important;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .music-dropdown {
+        background: rgba(30, 32, 36, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        margin-top: 10px;
+        padding: 8px;
+    }
+
+    .music-dropdown .dropdown-item {
+        color: rgba(255, 255, 255, 0.8);
+        padding: 8px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .music-dropdown .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ff6b6b;
+    }
+
+    .music-dropdown .dropdown-item i {
+        margin-right: 8px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .profile-thumbnail {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 8px;
+        border: 2px solid #ff6b6b;
+    }
+
+    .music-search {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: none !important;
+        color: #fff !important;
+        border-radius: 20px !important;
+        padding: 10px 20px !important;
+        transition: all 0.3s ease;
+    }
+
+    .music-search:focus {
+        background: rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 0 15px rgba(255,107,107,0.3) !important;
+    }
+
+    .music-search::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-results {
+        background: rgba(30, 32, 36, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .search-result-item h4 {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    @media (max-width: 768px) {
+        .music-nav {
+            padding: 10px 0;
+        }
+
+        .navbar-collapse {
+            background: rgba(30, 32, 36, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('navSearchInput');
+        const searchResults = document.getElementById('searchResults');
+        const searchForm = document.getElementById('navSearchForm');
+        let searchTimeout;
+
+        // 处理搜索输入
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const keyword = this.value.trim();
+
+            if (keyword.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            // 延迟发送请求，避免频繁请求
+            searchTimeout = setTimeout(() => {
+                fetch(`/api/search?keyword=${encodeURIComponent(keyword)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.Data && data.Data.length > 0) {
+                            searchResults.innerHTML = data.Data.map(article => `
+                                <div class="search-result-item" onclick="window.location.href='/articles/${article.id}'">
+                                    <h4>${article.title}</h4>
+                                    <p>${article.content}</p>
+                                </div>
+                            `).join('');
+                            searchResults.style.display = 'block';
+                        } else {
+                            searchResults.innerHTML = '<div class="search-result-item">没有找到相关文章</div>';
+                            searchResults.style.display = 'block';
+                        }
+                    });
+            }, 300);
+        });
+
+        // 点击外部关闭搜索结果
+        document.addEventListener('click', function(e) {
+            if (!searchForm.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // 处理表单提交
+        searchForm.addEventListener('submit', function(e) {
+            const keyword = searchInput.value.trim();
+            if (!keyword) {
+                e.preventDefault();
+            }
+        });
+    });
+    </script>
+
+    <body>
+        background: linear-gradient(135deg, #1e2024 0%, #18181d 100%);
+        margin: 0;
+        padding: 0;
+    </body>
+{{ end }}

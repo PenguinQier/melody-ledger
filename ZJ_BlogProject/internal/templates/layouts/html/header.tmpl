@@ -1,0 +1,114 @@
+{{ define "templates/layouts/html/header" }}
+<div style="display: none">
+    background: linear-gradient(135deg, #1e2024 0%, #18181d 100%); margin: 0; padding: 0;
+</div>
+
+<div class="music-header">
+    <div class="container">
+        <div class="mainheading">
+            <h1 class="sitetitle">{{ .APP_NAME }}</h1>
+            <p class="lead">
+                欢迎来到音符跳动——您的音乐灵魂栖息地。
+            </p>
+            <div class="music-wave">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.music-header {
+    background: linear-gradient(135deg, #1e2024 0%, #18181d 100%);
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mainheading {
+    position: relative;
+    z-index: 2;
+}
+
+.sitetitle {
+    color: #fff;
+    font-size: 3.5em;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(255,107,107,0.5);
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.lead {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* 音乐波浪动画 */
+.music-wave {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+}
+
+.music-wave span {
+    width: 4px;
+    height: 20px;
+    background: #ff6b6b;
+    border-radius: 2px;
+    animation: wave 1s ease-in-out infinite;
+}
+
+.music-wave span:nth-child(2) { animation-delay: 0.1s; }
+.music-wave span:nth-child(3) { animation-delay: 0.2s; }
+.music-wave span:nth-child(4) { animation-delay: 0.3s; }
+.music-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.5); }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255,107,107,0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255,107,107,0.8),
+                     0 0 30px rgba(255,107,107,0.6);
+    }
+}
+
+@media (max-width: 768px) {
+    .music-header {
+        padding: 40px 0 30px;
+    }
+
+    .sitetitle {
+        font-size: 2.5em;
+    }
+
+    .lead {
+        font-size: 1em;
+        padding: 0 20px;
+    }
+
+    .music-wave {
+        height: 30px;
+    }
+}
+</style>
+{{ end }}

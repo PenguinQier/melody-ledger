@@ -1,0 +1,389 @@
+{{ define "modules/user/html/profile" }}
+    {{ template "templates/layouts/html/head" .}}
+    {{ template "templates/layouts/html/navbar" .}}
+
+    <!-- 音乐风格个人中心页面 -->
+    <div class="music-profile-container">
+        <div class="music-profile-box">
+            <!-- 个人信息部分 -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="vinyl-avatar">
+                        <img src="{{ .AUTH.Image }}" alt="头像">
+                        <div class="vinyl-effect"></div>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1>{{ .AUTH.Name }}</h1>
+                    <p class="profile-email">{{ .AUTH.Email }}</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-newspaper"></i>
+                            <span>{{ len .articles.Data }} 篇文章</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章列表部分 -->
+            <div class="profile-articles">
+                <h2 class="music-title">
+                    <i class="fas fa-music"></i> 我的文章
+                </h2>
+                <div class="articles-grid">
+                    {{ if .articles.Data }}
+                        {{ range .articles.Data }}
+                            <div class="article-card">
+                                <div class="article-image">
+                                    {{ if .Image }}
+                                        <img src="{{ .Image }}" alt="{{ .Title }}">
+                                    {{ else }}
+                                        <div class="no-image">
+                                            <i class="fas fa-music"></i>
+                                        </div>
+                                    {{ end }}
+                                </div>
+                                <div class="article-content">
+                                    <h3><a href="/articles/{{ .ID }}">{{ .Title }}</a></h3>
+                                    <p class="article-excerpt">{{ .Content }}</p>
+                                    <div class="article-meta">
+                                        <span><i class="far fa-calendar"></i> {{ .CreatedAt }}</span>
+                                        <a href="/articles/{{ .ID }}/edit" class="edit-btn">
+                                            <i class="fas fa-edit"></i> 编辑
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ end }}
+                    {{ else }}
+                        <div class="no-articles">
+                            <i class="fas fa-music"></i>
+                            <p>还没有发表过文章</p>
+                            <a href="/articles/create" class="music-btn">
+                                <i class="fas fa-plus"></i> 创建第一篇文章
+                            </a>
+                        </div>
+                    {{ end }}
+                </div>
+            </div>
+
+            <!-- 编辑个人资料部分 -->
+            <div class="profile-form-container">
+                <h2 class="music-title">
+                    <i class="fas fa-user-edit"></i> 编辑个人资料
+                </h2>
+                <form class="music-profile-form" method="POST" action="/profile">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="name" name="name"
+                            placeholder="修改用户名"
+                            value="{{ range .OLD.name }}{{.}}{{end}}">
+                        <span class="text-danger">{{ .ERRORS.name }}</span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email"
+                            placeholder="修改邮箱"
+                            value="{{ range .OLD.email }}{{.}}{{end}}">
+                        <span class="text-danger">{{ .ERRORS.email }}</span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password"
+                            placeholder="修改密码（可选）">
+                        <span class="text-danger">{{ .ERRORS.password }}</span>
+                    </div>
+                    <button type="submit" class="music-btn">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    .music-profile-container {
+        min-height: 100vh;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #1e2024 0%, #18181d 100%);
+    }
+
+    .music-profile-box {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .profile-avatar {
+        margin-right: 30px;
+    }
+
+    .vinyl-avatar {
+        width: 150px;
+        height: 150px;
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .vinyl-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .vinyl-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at center,
+            transparent 30%,
+            rgba(0,0,0,0.2) 31%,
+            transparent 32%,
+            transparent 40%,
+            rgba(0,0,0,0.2) 41%,
+            transparent 42%
+        );
+        pointer-events: none;
+    }
+
+    .profile-info h1 {
+        color: #fff;
+        font-size: 2.5em;
+        margin: 0;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .profile-email {
+        color: rgba(255,255,255,0.7);
+        font-size: 1.1em;
+        margin: 10px 0;
+    }
+
+    .music-title {
+        color: #fff;
+        font-size: 1.8em;
+        margin-bottom: 30px;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .music-profile-form .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .music-profile-form input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        border-radius: 30px;
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .music-profile-form input:focus {
+        background: rgba(255,255,255,0.2);
+        outline: none;
+        box-shadow: 0 0 15px rgba(255,107,107,0.3);
+    }
+
+    .music-profile-form i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        opacity: 0.7;
+    }
+
+    .music-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+    }
+
+    .text-danger {
+        color: #ff6b6b;
+        font-size: 14px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+
+        .music-profile-box {
+            padding: 20px;
+        }
+    }
+
+    /* 新增样式 */
+    .profile-stats {
+        margin-top: 15px;
+        display: flex;
+        gap: 20px;
+    }
+
+    .stat-item {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .profile-articles {
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .article-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .article-image {
+        height: 160px;
+        overflow: hidden;
+    }
+
+    .article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .no-image {
+        height: 100%;
+        background: linear-gradient(45deg, #2c2c2c, #1a1a1a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .no-image i {
+        font-size: 40px;
+        color: rgba(255,255,255,0.2);
+    }
+
+    .article-content {
+        padding: 20px;
+    }
+
+    .article-content h3 {
+        margin: 0;
+        font-size: 1.2em;
+    }
+
+    .article-content h3 a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .article-excerpt {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9em;
+        margin: 10px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(255,255,255,0.5);
+        font-size: 0.9em;
+    }
+
+    .edit-btn {
+        color: #ff6b6b;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+    }
+
+    .edit-btn:hover {
+        color: #ff8e8e;
+    }
+
+    .no-articles {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px;
+        color: rgba(255,255,255,0.5);
+    }
+
+    .no-articles i {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .no-articles .music-btn {
+        max-width: 200px;
+        margin: 20px auto 0;
+    }
+
+    @media (max-width: 768px) {
+        .articles-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+
+    {{ template "templates/layouts/html/footer" .}}
+    {{ template "templates/layouts/html/foot" .}}
+{{ end }}

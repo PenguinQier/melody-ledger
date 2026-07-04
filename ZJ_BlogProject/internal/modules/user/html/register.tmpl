@@ -1,0 +1,200 @@
+{{ define "modules/user/html/register" }}
+    {{ template "templates/layouts/html/head" .}}
+    {{ template "templates/layouts/html/navbar" .}}
+
+    <!-- 音乐风格注册页面 -->
+    <div class="music-auth-container">
+        <div class="music-auth-box">
+            <div class="vinyl-record">
+                <div class="record-center"></div>
+                <div class="record-grooves"></div>
+            </div>
+            <div class="auth-form-container">
+                <h2 class="music-title">加入音乐社区</h2>
+                <form class="music-auth-form" method="POST" action="/register">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="name" name="name"
+                            placeholder="请输入用户名"
+                            value="{{ range .OLD.name }}{{.}}{{end}}">
+                        <span class="text-danger">{{ .ERRORS.name }}</span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email"
+                            placeholder="请输入邮箱"
+                            value="{{ range .OLD.email }}{{.}}{{end}}">
+                        <span class="text-danger">{{ .ERRORS.email }}</span>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password"
+                            placeholder="请输入密码">
+                        <span class="text-danger">{{ .ERRORS.password }}</span>
+                    </div>
+                    <button type="submit" class="music-btn">
+                        <i class="fas fa-music"></i> 开启音乐之旅
+                    </button>
+                </form>
+                <p class="switch-auth">
+                    已有账号？<a href="/login">立即登录</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    .music-auth-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1e2024 0%, #18181d 100%);
+        padding: 20px;
+    }
+
+    .music-auth-box {
+        display: flex;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        max-width: 900px;
+        width: 100%;
+    }
+
+    .vinyl-record {
+        width: 300px;
+        height: 300px;
+        background: #000;
+        border-radius: 50%;
+        margin-right: 60px;
+        position: relative;
+        animation: rotate 20s linear infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .record-center {
+        width: 100px;
+        height: 100px;
+        background: #c7c7c7;
+        border-radius: 50%;
+        border: 20px solid #000;
+        z-index: 2;
+    }
+
+    .record-grooves {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-radial-gradient(
+            circle at center,
+            #000 0,
+            #000 2px,
+            #222 2px,
+            #222 4px
+        );
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .auth-form-container {
+        flex: 1;
+    }
+
+    .music-title {
+        color: #fff;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .music-auth-form .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .music-auth-form input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        border-radius: 30px;
+        color: #fff;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .music-auth-form input:focus {
+        background: rgba(255,255,255,0.2);
+        outline: none;
+    }
+
+    .music-auth-form i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        opacity: 0.7;
+    }
+
+    .music-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+    }
+
+    .switch-auth {
+        text-align: center;
+        color: #fff;
+        margin-top: 20px;
+    }
+
+    .switch-auth a {
+        color: #ff6b6b;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .text-danger {
+        color: #ff6b6b;
+        font-size: 14px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .vinyl-record {
+            display: none;
+        }
+
+        .music-auth-box {
+            padding: 20px;
+        }
+    }
+    </style>
+
+    {{ template "templates/layouts/html/footer" .}}
+    {{ template "templates/layouts/html/foot" .}}
+{{ end }}
